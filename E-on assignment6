@@ -1,0 +1,63 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+int result(int pz_piece);
+int cal(int a, int b, int k);
+int fac(int num);
+
+int main()
+{
+	int pz_piece, c_num=0;
+
+	printf("피자의 조각 수를 입력하세요 : ");
+	scanf("%d", &pz_piece);
+
+	c_num = result(pz_piece);
+
+	printf("나누는 방법의 수는 %d입니다.", c_num);
+
+	return 0;
+}
+
+int result(int pz_piece)
+{
+	int one = 0;
+	int two = 0;
+	int c = 0;
+
+	two = pz_piece / 2;
+
+	for (two; two >=0; two--)
+	{
+		one = pz_piece - 2 * two;
+		int pic = one + two;
+		c += cal(one, two, pic);
+	}
+	return c;
+}
+
+int cal(int a, int b, int k)
+{
+
+	if (a == 0 || b == 0)
+	{
+		return 1;
+	}
+	else
+	{
+		int q = 0;
+		q=fac(k) / (fac(a) * fac(b));
+		return q;
+	}
+}
+
+int fac(int num)
+{
+	int i;
+	int f = 1;
+	for (i = 1; i <= num; i++)
+	{
+		f *= i;
+	}
+	return f;
+}
