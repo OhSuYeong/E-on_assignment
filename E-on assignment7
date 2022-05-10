@@ -10,6 +10,25 @@ def menu() : #메뉴 출력 함수
     print("6.저장")
     print("7.프로그램 나가기(자동저장)")
 
+#메인 함수 부분
+while True :
+    menu()
+    num = int(input("\n수행할 기능 번호를 입력하세요 : "))
+    
+    if num == 1 :
+        add()
+    elif num == 2 :
+        find()
+    elif num == 3 :
+        modify()
+    elif num == 4 :
+        delete()
+    elif num == 5 :
+        list_print()
+    elif num == 6 :
+        save()
+    elif num == 7 :
+        close()
 
 def add() : #도서 추가 함수
     newbook = input("\n도서명, 저자, 출판연도, 출판사명, 장르를 입력하세요(스페이스바로 구분) : ").split()
@@ -100,24 +119,3 @@ def save() : #저장 함수
 
 def close() : #프로그램 나가기(자동저장) 함수
     exit(save())
-
-#메인 함수 부분
-while True :
-    menu()
-    num = int(input("\n수행할 기능 번호를 입력하세요 : "))
-    
-    if num == 1 :
-        add()
-    elif num == 2 :
-        find()
-    elif num == 3 :
-        modify()
-    elif num == 4 :
-        delete()
-    elif num == 5 :
-        list_print()
-    elif num == 6 :
-        save()
-    elif num == 7 :
-        close()
-
