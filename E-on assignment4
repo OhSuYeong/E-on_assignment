@@ -1,0 +1,26 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+void main()
+{
+	int num[6];	//num 배열 선언
+	int ascending;
+	printf("숫자 6개를 입력하세요.\n");
+	for (int i = 0; i < 6; i++)	//배열 요소에 넣을 값을 반복해서 입력할 수 있는 반복문
+	{
+		scanf("%d,", &num[i]);	//배열 요소 입력
+	}
+	for (int j = 0; j < 5; j++)	//배열 요소가 총 6개이기 때문에 6번 반복
+	{
+		for (int h = 0; h < 5; h++)
+		{
+			if (num[h] > num[h + 1])	//만약 h번호를 가진 배열 요소가 h+1보다 큰 경우에 swap하는 if문
+			{
+				ascending = num[h];
+				num[h] = num[h + 1];
+				num[h + 1] = ascending;
+			}
+		}
+	}
+	printf("%d, %d, %d, %d, %d, %d", num[0], num[1], num[2], num[3], num[4], num[5]);	//오름차순으로 정리된 배열 num 출력
+}
