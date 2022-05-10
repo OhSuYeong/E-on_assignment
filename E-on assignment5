@@ -1,0 +1,170 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void commands_result(int* array, int** commands, int com_length);
+int asc(int* array1, int commands, int k);	//배열을 자르고 오름차순으로 정렬하고 값을 출력하는 함수
+
+int main()
+{
+	int array_length=0;
+	int com_length;
+	int result_length = 0;
+	printf("배열 array의 길이를 입력하세요.");
+	scanf("%d", &array_length);
+	int* array;
+	array = (int*)malloc(sizeof(int) * array_length);
+	for (int q = 0; q < array_length; q++)
+	{
+		printf("array의 원소를 입력하세요.");
+		scanf("%d", array+q);
+	}
+	printf("commands의 길이를 입력하세요.");
+	scanf("%d", &com_length);
+
+	int** commands;
+	commands = (int**)malloc(sizeof(int*) * com_length);
+	for (int w = 0; w < com_length; w++)
+	{
+		commands[w] = (int*)malloc(sizeof(int) * 3);
+	}
+
+//commands 공간 할당
+	int ic = 0;
+
+	do
+	{
+		printf("%d번째 명령입니다.\n", ic + 1);
+		printf("시점을 입력해 주세요 : ");
+		scanf("%d", commands[ic]);
+
+
+		do
+		{
+			printf("종점을 입력해 주세요 : ");
+			scanf("%d", commands[ic] + 1);
+			if (commands[ic][0] > commands[ic][1])
+			{
+				printf("시점이 종점보다 뒤에 있습니다.\n");
+			}
+		} while (commands[ic][0] > commands[ic][1]);
+
+		do
+		{
+			printf("몇번째 수를 원하는지 입력해주세요 : ");
+			scanf("%d", commands[ic] + 2);
+			if (commands[ic][2] > commands[ic][1] - commands[ic][0] + 1)
+			{
+				printf("구간을 벗어납니다.\n");
+			}
+		} while (commands[ic][2] > commands[ic][1] - commands[ic][0] + 1);
+
+		ic++;
+
+	} while (ic < com_length);
+
+//commands 값 할당
+	printf("|array|commands|return|\n");
+
+	printf("|");
+	for (int q = 0; q < array_length; q++)
+	{
+		if (q == 0)
+		{
+			printf("[%d,", array[q]);
+		}
+		else if (q == array_length - 1)
+		{
+			printf("%d]", array[q]);
+		}
+		else
+		{
+			printf("%d,", array[q]);
+		}
+	}
+
+	printf("|[");
+
+	for (int w = 0; w < com_length; w++)
+	{
+			for (int e = 0; e < 3; e++)
+			{
+				if (e == 0)
+				{
+					printf("[%d", commands[w][e]);
+				}
+				else if (e == 1)
+				{
+					printf(",%d,", commands[w][e]);
+				}
+				else
+				{
+					printf("%d]", commands[w][e]);
+				}
+			}
+	}
+	printf("]|");
+	
+	commands_result(array, commands, com_length);
+
+	printf("|");
+
+	for (int w = 0; w < com_length; w++)
+	{
+		free(commands[w]);
+	}
+	free(commands);
+}
+
+void commands_result(int* array,int** commands, int com_length)
+{
+	int* result_array = (int*)malloc(sizeof(int) * com_length);
+	for (int t = 0; t < com_length; t++)
+	{
+		int u=0;
+		int p=commands[t][0];
+		int f = commands[t][1];
+		int k = commands[t][2];
+		u = f - p+1;
+		
+		int *array1 = (int*)malloc(sizeof(int)* u);	//공간 할당
+		for (int y = 0; y < u; y++)
+		{
+			array1[y] = array[p+y-1];
+		}	//값 전달
+		result_array[t]=asc(array1, u, k-1);	//정렬
+	}
+	for (int o = 0; o < com_length; o++)
+	{
+		if (o == 0)
+		{
+			printf("[%d", result_array[o]);
+		}
+		else if (o == 1)
+		{
+			printf(",%d,", result_array[o]);
+		}
+		else
+		{
+			printf("%d]", result_array[o]);
+		}
+	}
+}
+
+int asc(int* array1, int length, int k)
+{
+	for (int j = 0; j < length-1; j++)
+	{
+		for (int h = 0; h < length-1; h++)
+		{
+			if (array1[h] > array1[h + 1])	
+			{
+				int ascending = array1[h];
+				array1[h] = array1[h + 1];
+				array1[h + 1] = ascending;
+			}
+		}
+	}
+	return array1[k];
+}
