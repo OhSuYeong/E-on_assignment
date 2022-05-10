@@ -19,7 +19,7 @@ def add() : #도서 추가 함수
 
 def find() : #도서 검색 함수
     print("\n도서명(1), 저자(2), 출판일(3), 출판사명(4), 장르(5)")
-    fnum = int(input("\n무엇으로 검색하시겠습니까?(숫자) : "))
+    fnum = int(input("\n검색 수단을 고르세요(숫자로 고를 것) : "))
     if fnum == 1 :
         name = input("\n도서명 : ")
         for i in range(len(data)) :
@@ -51,29 +51,29 @@ def modify() : #도서 정보 수정 함수
     list_print()
     i = int(input("\n수정할 도서데이터 번호를 입력하세요.(1번부터 시작) : ")) - 1
     print("\n도서명(1), 저자(2), 출판일(3), 출판사명(4), 장르(5)")
-    mnum = int(input("\n무엇을 수정하시겠습니까?(숫자) : "))
+    mnum = int(input("\n수정할 정보를 고르세요(숫자로 고를 것) : "))
     if mnum == 1 :
         data[i][0] = input("\n수정내용 : ")
-        print("수정되었습니다.")
+        print("수정완료")
     elif mnum == 2 :
         data[i][1] = input("\n수정내용 : ")
-        print("수정되었습니다.")
+        print("수정완료")
     elif mnum == 3 :
         data[i][2] = input("\n수정내용 : ")
-        print("수정되었습니다.")
+        print("수정완료")
     elif mnum == 4 :
         data[i][3] = input("\n수정내용 : ")
-        print("수정되었습니다.")
+        print("수정완료")
     elif mnum == 5 :
         data[i][4] = input("\n수정내용 : ")
-        print("수정되었습니다.")           
+        print("수정완료")           
 
 
 def delete() : #도서 삭제 함수
     list_print()
     i = int(input("\n삭제할 도서데이터 번호를 입력하세요.(1번부터 시작) : ")) - 1
     del data[i]
-    print("삭제되었습니다.")
+    print("삭제완료")
 
 
 def list_print() : #현재 총 도서 목록 출력 함수
@@ -95,7 +95,7 @@ def save() : #저장 함수
             f.write(" ")
             f.write(data[i][4])
             f.write("\n")
-    print("저장되었습니다.")
+    print("저장완료")
 
 
 def close() : #프로그램 나가기(자동저장) 함수
@@ -104,7 +104,7 @@ def close() : #프로그램 나가기(자동저장) 함수
 #메인 함수 부분
 while True :
     menu()
-    num = int(input("\n수행할 기능의 번호를 입력하세요 : "))
+    num = int(input("\n수행할 기능 번호를 입력하세요 : "))
     
     if num == 1 :
         add()
