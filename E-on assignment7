@@ -1,7 +1,8 @@
 import Database
-data = Database.books #전역변수 data 선언
+data = Database.booklist #전역변수 data 선언
 
 def menu() : #메뉴 출력 함수
+    print("==도서관리 프로그램==")
     print("1.도서 추가")
     print("2.도서 검색")
     print("3.도서 정보 수정")
@@ -9,20 +10,21 @@ def menu() : #메뉴 출력 함수
     print("5.현재 총 도서 목록 출력")
     print("6.저장")
     print("7.프로그램 나가기(자동저장)")
+    print("*주의 사항 : 항목의 범위에서 벗어나는 번호는 입력하시면 안됩니다.")
 
 def add() : #도서 추가 함수
-    newbook = input("\n도서명, 저자, 출판연도, 출판사명, 장르를 입력하세요(스페이스바로 구분) : ").split()
-    Database.books.append(newbook)
-    print("추가되었습니다.")
+    newbook= input("\n도서명, 저자, 출판연도, 출판사명, 장르를 입력하세요(,로 구분) : ").split(",")
+    Database.booklist.append(newbook)
+    print("추가 완료")
 
 
 def find() : #도서 검색 함수
-    print("\n도서명(1), 저자(2), 출판일(3), 출판사명(4), 장르(5)")
-    fnum = int(input("\n검색 수단을 고르세요(숫자로 고를 것) : "))
+    print("\n1.도서명 2. 저자 3. 출판일4. 출판사명 5. 장르")
+    fnum = int(input("\n검색 수단(숫자로 고를 것) : "))
     if fnum == 1 :
-        name = input("\n도서명 : ")
+        bname = input("\n도서명 : ")
         for i in range(len(data)) :
-             if(name == data[i][0]) :
+             if(bname == data[i][0]) :
               print(data[i])
     elif fnum == 2 : 
         name = input("\n저자 : ")
@@ -30,27 +32,29 @@ def find() : #도서 검색 함수
              if(name == data[i][1]) :
               print(data[i])  
     elif fnum == 3 :
-        name = input("\n출판일 : ")
+        pdate = input("\n출판일 : ")
         for i in range(len(data)) :
-             if(name == data[i][2]) :
+             if(pdate == data[i][2]) :
               print(data[i])
     elif fnum == 4 :
-        name = input("\n출판사명 : ")
+        pname = input("\n출판사명 : ")
         for i in range(len(data)) :
-             if(name == data[i][3]) :
+             if(pname == data[i][3]) :
               print(data[i])
     elif fnum == 5 :
-        name = input("\n장르 : ")
+        genre = input("\n장르 : ")
         for i in range(len(data)) :
-             if(name == data[i][4]) :
+             if(genre == data[i][4]) :
               print(data[i]) 
+    else:
+        print("검색 항목에 없는 번호")
 
 
 def modify() : #도서 정보 수정 함수
     list_print()
-    i = int(input("\n수정할 도서데이터 번호를 입력하세요.(1번부터 시작) : ")) - 1
-    print("\n도서명(1), 저자(2), 출판일(3), 출판사명(4), 장르(5)")
-    mnum = int(input("\n수정할 정보를 고르세요(숫자로 고를 것) : "))
+    i = int(input("\n수정할 도서데이터 번호 입력(1번부터 시작) : ")) - 1
+    print("\n1.도서명 2. 저자 3. 출판일4. 출판사명 5. 장르")
+    mnum = int(input("\n수정할 정보(숫자로 고를 것) : "))
     if mnum == 1 :
         data[i][0] = input("\n수정내용 : ")
         print("수정완료")
@@ -65,20 +69,21 @@ def modify() : #도서 정보 수정 함수
         print("수정완료")
     elif mnum == 5 :
         data[i][4] = input("\n수정내용 : ")
-        print("수정완료")           
+        print("수정완료")
+    else:
+        print("검색 항목에 없는 번호")       
 
 
 def delete() : #도서 삭제 함수
     list_print()
-    i = int(input("\n삭제할 도서데이터 번호를 입력하세요.(1번부터 시작) : ")) - 1
+    i = int(input("\n삭제할 도서데이터 번호 입력(1번부터 시작) : ")) - 1
     del data[i]
     print("삭제완료")
 
 
 def list_print() : #현재 총 도서 목록 출력 함수
-    print("도서명 / 저자 / 출판일 / 출판사명 / 장르 순\n")
     for i in range(len(data)) : #출력 형식
-        print(i+1,"(", data[i][0],"/", data[i][1], "/", data[i][2], "/", data[i][3], "/", data[i][4], ")")
+        print(i+1,"번", "도서명 :", data[i][0],"/ 저자 :", data[i][1], "/ 출판일 :", data[i][2], "/ 출판사명 :", data[i][3], "/ 장르 :", data[i][4])
 
 
 def save() : #저장 함수
@@ -103,7 +108,7 @@ def close() : #프로그램 나가기(자동저장) 함수
     #메인 함수 부분
 while True :
     menu()
-    num = int(input("\n수행할 기능 번호를 입력하세요 : "))
+    num = int(input("\n수행할 기능의 번호를 입력 : "))
     
     if num == 1 :
         add()
@@ -119,3 +124,5 @@ while True :
         save()
     elif num == 7 :
         close()
+    else:
+        print("항목에 없는 번호")
