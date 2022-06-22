@@ -38,7 +38,7 @@ def fast() : #빠른 시간 기차 검색 및 예매
             with open('file_path', "w",encoding='UTF-8') as file : #쓰기 형태로 파일 열기
                 for i in range(0,len(data)) :
                     data[i].append('\n')
-                    data[i] = ' '.join(map(str, data[i]))
+                    data[i] = train_ticket
                     file.write(data[i])
         elif getin == 2 : 
             print("메인화면으로 돌아갑니다.\n")
