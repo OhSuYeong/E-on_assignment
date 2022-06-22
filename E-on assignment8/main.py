@@ -53,7 +53,7 @@ def modify() : #나의 예매 현황 출력 및 예매 취소
     global ticket_number
 
     if ticket_number == 0:
-        print("티켓이 조회되지 않습니다.\n")
+        print("검색하신 티켓이 존재하지 \n")
 
     else:
         print("==나의 예매 현황==")
