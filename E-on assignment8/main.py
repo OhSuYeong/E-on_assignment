@@ -1,7 +1,7 @@
 import DataBase
+import datetime
 data = DataBase.TrainList #TrainList를 data에 저장
 ticket_number = 0
-list_len = 0
 
 
 def menu() : #메뉴 출력 함수
@@ -23,24 +23,24 @@ def fast() : #빠른 시간 기차 검색 및 예매
                 train_ticket = ' '.join(map(str, data[i]))
                 ticket_number = i
                 break
+
     if not train_ticket  : 
         print("해당 기차의 좌석은 전부 매진됐습니다.\n")
     else : 
         print(train_ticket, '\n')
-        getin = input('해당 기차로 예매하시겠습니까?(예:1, 아니오:2)')
+        getin = int(input('해당 기차로 예매하시겠습니까?(예:1, 아니오:2)'))
 
-        if(getin == 1) : 
+        if getin == 1 : 
             print("예매 완료\n")
-            data[i][5] = int(data[i][5]) - 1
+            data[i][4] = int(data[i][4]) - 1
 
-            if data[i][5] == 0 : 
-                data[i][5] = '매진'
-            file=open('C:\TrainList.txt', "w", encoding='UTF-8') #쓰기 형태로 파일 열기
-            for i in range(0,len(data)) :
+            if data[i][4] == 0 : 
+                data[i][4] = '매진'
+            with open('C:\TrainList.txt', "w", encoding='UTF-8')as file : #쓰기 형태로 파일 열기
+                for i in range(0,len(data)) :
                     data[i].append('\n')
                     data[i] = ' '.join(map(str, data[i]))
                     file.write(data[i])
-                    file.close()
         elif getin == 2 : 
             print("메인화면으로 돌아갑니다.\n")
         else :
@@ -48,7 +48,7 @@ def fast() : #빠른 시간 기차 검색 및 예매
 
 def alllist() : #전체 기차 리스트 출력
     for i in range(0,len(data)) : #리스트 길이만큼 반복
-        print(i+1,"번", "시간 :", data[i][0], "/ 출발 :", data[i][1], "/ 도착 :", data[i][2], "/ 열차종류 :", data[i][3], "/잔여좌석수 :", data[i][4])
+        print("시간 :", data[i][0], "/ 출발 :", data[i][1], "-> 도착 :", data[i][2], "/ 열차종류 :", data[i][3], "/ 잔여좌석수 :", data[i][4])
 
 def modify() : #나의 예매 현황 출력 및 예매 취소
     print("==나의 예매 현황==")
@@ -60,7 +60,7 @@ def modify() : #나의 예매 현황 출력 및 예매 취소
     else:
         print("==나의 예매 현황==")
         print(data[ticket_number])
-        getin = input("\n 1. 예매 취소\n 2. 뒤로 가기")
+        getin = int(input("\n 1. 예매 취소\n 2. 뒤로 가기"))
 
         if getin == '1' :
             print("예매가 취소되었습니다.")
@@ -68,19 +68,18 @@ def modify() : #나의 예매 현황 출력 및 예매 취소
 
             temp_list = data[ticket_number].split()
 
-            if temp_list[5] == '매진' : 
-                temp_list[5] = 1
+            if temp_list[4] == '매진' : 
+                temp_list[4] = 1
             else : 
-                temp_list[5] = int(temp_list[5]) + 1
+                temp_list[4] = int(temp_list[4]) + 1
 
             data[ticket_number] = ' '.join(map(str,temp_list))
 
-            file=open('C:\TrainList.txt', "w", encoding='UTF-8') #쓰기 형태로 파일 열기
-            for i in range(len(data)) :
-                file.write(data[i])
-                file.close()
-            else :
-                input("메뉴화면으로 돌아가시려면 아무 키나 눌러주세요.\n")
+            with open('C:\TrainList.txt', "w", encoding='UTF-8') as file : #쓰기 형태로 파일 열기
+                for i in range(len(data)) :
+                    file.write(data[i])
+                else :
+                    input("메뉴화면으로 돌아가시려면 아무 키나 눌러주세요.\n")
 
 def close() : #프로그램 나가기 함수
     exit()
